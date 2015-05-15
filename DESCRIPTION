@@ -1,0 +1,9 @@
+Package: NethackLogfiles
+Type: Package
+Title: Read Nethack Logfiles
+Version: 0.2-0
+Date: 2015-05-15
+Author: Enrico Schumann
+Maintainer: Enrico Schumann <es@enricoschumann.net>
+Description: Read logfiles of the game 'Nethack'.
+License: GPL-3
