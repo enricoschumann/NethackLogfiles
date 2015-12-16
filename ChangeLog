@@ -1,4 +1,10 @@
-2015-05-15  Enrico Schumann  <enrico.schumann@aquila-capital.com>
+2015-12-16  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): Version: 0.5-0
+
+	* R/readLogfile.R (readLogfile): added missing roles
+
+2015-05-15  Enrico Schumann  <es@enricoschumann.net>
 
 	* DESCRIPTION (Version): Version: 0.2-0
 

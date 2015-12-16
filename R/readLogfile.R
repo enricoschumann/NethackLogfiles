@@ -34,27 +34,34 @@ readLogfile <- function(file, version = "3.4.3", expand.abbrevs = TRUE) {
     name          <- field(tmp, 16)
     cause         <- substr(txt[ver], comma + 1L, nchar(txt))
                                 
-    ## TODO: roles
     if (expand.abbrevs) {
-       role[role == "Bar"] <- "Barbarian"
-       role[role == "Hea"] <- "Healer"
-       role[role == "Mon"] <- "Monk"
-       role[role == "Ran"] <- "Ranger"
-       role[role == "Rog"] <- "Rogue"
-       role[role == "Sam"] <- "Samurai"
-       role[role == "Tou"] <- "Tourist"
-       role[role == "Wiz"] <- "Wizard"
-       ##
-       gender[gender == "Mal"] <- "male"
-       gender[gender == "Fem"] <- "female"
-       ##
-       alignment[alignment == "Neu"] <- "neutral"
-       alignment[alignment == "Cha"] <- "chaotic"
-       alignment[alignment == "Law"] <- "lawful"
-       ##
-       race[race == "Hum"] <- "human"
-       race[race == "Elf"] <- "elf"
-       race[race == "Orc"] <- "orc"
+        
+        role[role == "Arc"] <- "archeologist"
+        role[role == "Bar"] <- "barbarian"
+        role[role == "Cav"] <- "caveman"
+        role[role == "Hea"] <- "healer"
+        role[role == "Kni"] <- "knight"
+        role[role == "Mon"] <- "monk"
+        role[role == "Pri"] <- "priest"
+        role[role == "Ran"] <- "ranger"
+        role[role == "Rog"] <- "rogue"
+        role[role == "Sam"] <- "samurai"
+        role[role == "Tou"] <- "tourist"
+        role[role == "Val"] <- "valkyrie"
+        role[role == "Wiz"] <- "wizard"
+        ##
+        gender[gender == "Mal"] <- "male"
+        gender[gender == "Fem"] <- "female"
+        ##
+        alignment[alignment == "Neu"] <- "neutral"
+        alignment[alignment == "Cha"] <- "chaotic"
+        alignment[alignment == "Law"] <- "lawful"
+        ##
+        race[race == "Dwa"] <- "dwarf"
+        race[race == "Elf"] <- "elf"
+        race[race == "Gno"] <- "gnome"
+        race[race == "Hum"] <- "human"
+        race[race == "Orc"] <- "orc"
     }
 
     df0 <- data.frame(version       =  version, 
@@ -73,7 +80,8 @@ readLogfile <- function(file, version = "3.4.3", expand.abbrevs = TRUE) {
                       gender        =  gender, 
                       alignment     =  alignment, 
                       name          =  name, 
-                      cause         =  cause)
+                      cause         =  cause,
+                      stringsAsFactors = FALSE)
 
     df0
 }

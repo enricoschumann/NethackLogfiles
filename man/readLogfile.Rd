@@ -26,28 +26,25 @@ readLogfile(file, version = "3.4.3", expand.abbrevs = TRUE)
   Currently only version 3.4.3 is supported.
 }
 \value{
-  A data.frame.  For version 3.4.3
+  A \code{\link{data.frame}}.  
 
-      %% df0 <- data.frame(version       =  version, 
-      %%                 score         =  score, 
-      %%                 dun.num       =  dun.num, 
-      %%                 dun.level     =  dun.level, 
-      %%                 dun.level.max =  dun.level.max, 
-      %%                 hp            =  hp, 
-      %%                 hp.max        =  hp.max, 
-      %%                 ndeaths       =  ndeaths, 
-      %%                 end.date      =  end.date, 
-      %%                 start.date    =  start.date, 
-      %%                 uid           =  uid, 
-      %%                 role          =  role, 
-      %%                 race          =  race, 
-      %%                 gender        =  gender, 
-      %%                 alignment     =  alignment, 
-      %%                 name          =  name, 
-      %%                 cause         =  cause)
-
- %% \item{version}{Description of 'comp1'}
- %% \item{score}{Description of 'comp2'}
+     \item{version}{Nethack version} 
+     \item{score}{score} 
+     \item{dun.num}{} 
+     \item{dun.level}{dungeon level when killed} 
+     \item{dun.level.max}{deepest dungeon level visited} 
+     \item{hp}{hitpoints} 
+     \item{hp.max}{maximum hitpoints} 
+     \item{ndeaths}{} 
+     \item{start.date}{Date; start of game} 
+     \item{end.date}{Date; end of game} 
+     \item{uid}{uid} 
+     \item{role}{role} 
+     \item{race}{race} 
+     \item{gender}{gender: male or female} 
+     \item{alignment}{alignment} 
+     \item{name}{player name} 
+     \item{cause}{cause of death}
 
 }
 \references{
@@ -63,5 +60,10 @@ readLogfile(file, version = "3.4.3", expand.abbrevs = TRUE)
 }
 \examples{
 \dontrun{
-readLogfile("/var/games/nethack/logfile")}
+require("NethackLogfiles")
+nh <- readLogfile("/var/games/nethack/logfile")
+boxplot(nh$score ~ nh$role)
+boxplot(nh$dun.level.max~nh$role)
+plot(nh$end.date, nh$score, type = "h")
+}
 }
