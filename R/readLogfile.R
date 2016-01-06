@@ -11,6 +11,9 @@ readLogfile <- function(file, version = "3.4.3", expand.abbrevs = TRUE) {
     ## version number present?
     ver <- grep("^[0-9][.][0-9][.][0-9].*", txt)
 
+    if (ver != version)
+        warning("logfile version is ", sQuote(ver))
+    
     ## (i) with version number (since 3.2.0)
     comma <- regexpr(",", txt, fixed = TRUE)    
     txt0 <- substr(txt[ver], 1, comma - 1L)
