@@ -68,6 +68,7 @@ readLogfile <- function(file, version = "3.4.3", expand.abbrevs = TRUE) {
     }
 
     df0 <- data.frame(version       =  version, 
+                      name          =  name, 
                       score         =  score, 
                       dun.num       =  dun.num, 
                       dun.level     =  dun.level, 
@@ -75,14 +76,13 @@ readLogfile <- function(file, version = "3.4.3", expand.abbrevs = TRUE) {
                       hp            =  hp, 
                       hp.max        =  hp.max, 
                       ndeaths       =  ndeaths, 
-                      end.date      =  end.date, 
-                      start.date    =  start.date, 
+                      death.date    =  end.date, 
+                      birth.date    =  start.date, 
                       uid           =  uid, 
                       role          =  role, 
                       race          =  race, 
                       gender        =  gender, 
                       alignment     =  alignment, 
-                      name          =  name, 
                       cause         =  cause,
                       stringsAsFactors = FALSE)
 
