@@ -1,5 +1,7 @@
 2016-03-21  Enrico Schumann  <es@enricoschumann.net>
 
+        * DESCRIPTION (Version): 0.5-2
+
 	* R/readLogfile.R (readLogfile): fix warning about wrong
 	version
 
