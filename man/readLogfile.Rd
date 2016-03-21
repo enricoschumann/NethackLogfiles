@@ -23,36 +23,41 @@ readLogfile(file, version = "3.4.3", expand.abbrevs = TRUE)
   }  
 }
 \details{
-  Currently only version 3.4.3 is supported.
+  Currently only version 3.4.3 and never are supported (i.e. tested).
 }
 \value{
   A \code{\link{data.frame}}.  
 
      \item{version}{Nethack version} 
+     \item{name}{player name} 
      \item{score}{score} 
      \item{dun.num}{} 
      \item{dun.level}{dungeon level when killed} 
      \item{dun.level.max}{deepest dungeon level visited} 
      \item{hp}{hitpoints} 
      \item{hp.max}{maximum hitpoints} 
-     \item{ndeaths}{} 
-     \item{start.date}{Date; start of game} 
-     \item{end.date}{Date; end of game} 
+     \item{ndeaths}{number of deaths} 
+     \item{death.date}{Date; end of game} 
+     \item{birth.date}{Date; start of game} 
      \item{uid}{uid} 
      \item{role}{role} 
      \item{race}{race} 
      \item{gender}{gender: male or female} 
      \item{alignment}{alignment} 
-     \item{name}{player name} 
      \item{cause}{cause of death}
 
 }
 \references{
    \url{http://www.saunalahti.fi/~juklahta/nethack.html}
+
    \url{http://nethackwiki.com/wiki/Logfile}
+
    \url{https://metacpan.org/source/SARTAK/NetHack-Logfile-1.00/lib/NetHack/Logfile/Entry/33.pm}
+
    \url{http://nethack.wikia.com/wiki/NetHack_3.1.0/topten.c}
+
    \url{http://alt.org/nethack/}
+
    \url{http://ftp.sunet.se/pub/games/nethack/General/Source/Utils/reclist.c}
 }
 \author{
@@ -64,6 +69,6 @@ require("NethackLogfiles")
 nh <- readLogfile("/var/games/nethack/logfile")
 boxplot(nh$score ~ nh$role)
 boxplot(nh$dun.level.max~nh$role)
-plot(nh$end.date, nh$score, type = "h")
+plot(nh$death.date, nh$score, type = "h")
 }
 }

@@ -8,13 +8,14 @@ readLogfile <- function(file, version = "3.4.3", expand.abbrevs = TRUE) {
     
     txt <- readLines(file)
 
-    ## version number present?
-    ver <- grep("^[0-9][.][0-9][.][0-9].*", txt)
+    ## version number present? [with version number since 3.2.0]
+    ver <- grep("^[0-9]+[.][0-9]+[.][0-9]+.*", txt)
+    if (length(ver))
+        version_ <- gsub("^([0-9]+[.][0-9]+[.][0-9]+).*", "\\1", txt[min(ver)])
 
-    if (ver != version)
+    if (version_ != version)
         warning("logfile version is ", sQuote(ver))
     
-    ## (i) with version number (since 3.2.0)
     comma <- regexpr(",", txt, fixed = TRUE)    
     txt0 <- substr(txt[ver], 1, comma - 1L)
     tmp <- strsplit(txt0, " ")

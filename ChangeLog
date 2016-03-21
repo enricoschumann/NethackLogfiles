@@ -1,14 +1,22 @@
+2016-03-21  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/readLogfile.R (readLogfile): fix warning about wrong
+	version
+
+	* man/readLogfile.Rd: update docs
+
 2016-01-18  Enrico Schumann  <es@enricoschumann.net>
 
 	* DESCRIPTION (Version): Version: 0.5-1
 
 2016-01-06  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/readLogfile.R: added warning when specified 'version' differs
-	from version in logfile
+	* R/readLogfile.R: added warning when specified 'version'
+	differs from version in logfile
 
-	rearranged columns of resulting data.frame; 'start.date' and
-	'end.date' are renamed to 'birth.date' and 'death.date'
+	rearranged columns of resulting data.frame; 'start.date'
+	and 'end.date' are renamed to 'birth.date' and
+	'death.date'
 
 2015-12-16  Enrico Schumann  <es@enricoschumann.net>
 
@@ -22,6 +30,6 @@
 
 2014-08-22  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): Version: 0.1-0 -- initial version; only
-	Nethack 3.4.3 is supported
+	* DESCRIPTION (Version): Version: 0.1-0 -- initial
+	version; only Nethack 3.4.3 is supported
 
