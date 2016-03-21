@@ -1,3 +1,10 @@
+v0.5-2  (2016-03-21)
+
+  o fixed warning about wrong version
+
+  o there is now a public Git repository at
+    https://github.com/enricoschumann/NethackLogfiles
+
 v0.5-1  (2016-01-18)
 
   o added warning when specified 'version' differs from version in
