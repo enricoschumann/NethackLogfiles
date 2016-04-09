@@ -59,6 +59,9 @@ readLogfile(file, version = "3.4.3", expand.abbrevs = TRUE)
    \url{http://alt.org/nethack/}
 
    \url{http://ftp.sunet.se/pub/games/nethack/General/Source/Utils/reclist.c}
+
+   \url{https://github.com/NetHack/NetHack}
+
 }
 \author{
   Enrico Schumann
