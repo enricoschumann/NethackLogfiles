@@ -1,3 +1,10 @@
+v0.5-3  (2016-08-23)
+
+  o Add support for (ancient) version 3.1
+
+  o Default for argument 'version' is "auto", which
+    will work with 3.4.3 and 3.6.0
+
 v0.5-2  (2016-03-21)
 
   o fixed warning about wrong version
@@ -7,11 +14,12 @@ v0.5-2  (2016-03-21)
 
 v0.5-1  (2016-01-18)
 
-  o added warning when specified 'version' differs from version in
-    logfile
+  o added warning when specified 'version' differs from
+    version in logfile
 
-  o rearranged columns of resulting data.frame; 'start.date' and
-    'end.date' are renamed to 'birth.date' and 'death.date'
+  o rearranged columns of resulting data.frame;
+    'start.date' and 'end.date' are renamed to
+    'birth.date' and 'death.date'
 
   o tested: the package also works with Nethack 3.6.0
   
