@@ -9,21 +9,25 @@
   Read logfiles of the ancient game of Nethack.
 }
 \usage{
-readLogfile(file, version = "3.4.3", expand.abbrevs = TRUE)
+readLogfile(file, version = "auto", expand.abbrevs = TRUE)
 }
 \arguments{
   \item{file}{
     character; the logfile (or record file)
 }
   \item{version}{
-    character or \code{NA}
+    character
   }
   \item{expand.abbrevs}{
     logical; should abbreviated rolenames etc. be expanded? Default is \code{TRUE}.
   }  
 }
 \details{
-  Currently only version 3.4.3 and never are supported (i.e. tested).
+
+  Currently only version 3.4.3 and newer are
+  supported (i.e. regularly tested). Logfiles
+  for version 3.1.0 should also work.
+
 }
 \value{
   A \code{\link{data.frame}}.  
@@ -48,6 +52,7 @@ readLogfile(file, version = "3.4.3", expand.abbrevs = TRUE)
 
 }
 \references{
+  
    \url{http://www.saunalahti.fi/~juklahta/nethack.html}
 
    \url{http://nethackwiki.com/wiki/Logfile}
@@ -56,12 +61,18 @@ readLogfile(file, version = "3.4.3", expand.abbrevs = TRUE)
 
    \url{http://nethack.wikia.com/wiki/NetHack_3.1.0/topten.c}
 
+   \url{https://nethackwiki.com/wiki/Source:NetHack_3.1.0/topten.c}
+
    \url{http://alt.org/nethack/}
 
    \url{http://ftp.sunet.se/pub/games/nethack/General/Source/Utils/reclist.c}
 
    \url{https://github.com/NetHack/NetHack}
 
+   https://github.com/enricoschumann/NethackLogfiles
+
+   https://scoreboard.xd.cm/about.html
+   
 }
 \author{
   Enrico Schumann
@@ -70,6 +81,7 @@ readLogfile(file, version = "3.4.3", expand.abbrevs = TRUE)
 \dontrun{
 require("NethackLogfiles")
 nh <- readLogfile("/var/games/nethack/logfile")
+nh <- readLogfile("/home/es/Documents/Nethack/3.6.0/logfile")
 boxplot(nh$score ~ nh$role)
 boxplot(nh$dun.level.max~nh$role)
 plot(nh$death.date, nh$score, type = "h")
