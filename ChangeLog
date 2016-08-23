@@ -1,5 +1,7 @@
 2016-08-23  Enrico Schumann  <es@enricoschumann.net>
 
+        * DESCRIPTION (Version): 0.5-3
+
 	* R/readLogfile.R (readLogfile): support
 	version 3.1; change 'version' default to "auto";
 
