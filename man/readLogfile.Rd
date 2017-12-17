@@ -1,7 +1,8 @@
 \name{NethackLogfiles}
 \alias{NethackLogfiles}
 \alias{NethackLogfiles-package}
-\alias{readLogfile}
+\alias{read_logfile}
+\alias{read_xlogfile}
 \title{
   Parse Nethack Logfiles
 }
@@ -9,7 +10,8 @@
   Read logfiles of the ancient game of Nethack.
 }
 \usage{
-readLogfile(file, version = "auto", expand.abbrevs = TRUE)
+read_logfile(file, version = "auto", expand.abbrevs = TRUE)
+read_xlogfile(file, version = "auto", expand.abbrevs = TRUE)
 }
 \arguments{
   \item{file}{
@@ -80,8 +82,8 @@ readLogfile(file, version = "auto", expand.abbrevs = TRUE)
 \examples{
 \dontrun{
 require("NethackLogfiles")
-nh <- readLogfile("/var/games/nethack/logfile")
-nh <- readLogfile("/home/es/Documents/Nethack/3.6.0/logfile")
+nh <- read_logfile("/var/games/nethack/logfile")
+nh <- read_logfile("/home/es/Documents/Nethack/3.6.0/logfile")
 boxplot(nh$score ~ nh$role)
 boxplot(nh$dun.level.max~nh$role)
 plot(nh$death.date, nh$score, type = "h")
