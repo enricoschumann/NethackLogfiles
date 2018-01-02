@@ -1,9 +1,9 @@
 Package: NethackLogfiles
 Type: Package
 Title: Read Nethack Logfiles
-Version: 0.5-3
-Date: 2016-08-23
+Version: 0.9-0
+Date: 2018-01-02
 Author: Enrico Schumann
 Maintainer: Enrico Schumann <es@enricoschumann.net>
-Description: Read logfiles of the game 'Nethack'.
+Description: Read logfiles of the ancient game of 'Nethack'.
 License: GPL-3

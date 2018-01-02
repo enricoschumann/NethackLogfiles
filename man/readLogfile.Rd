@@ -51,6 +51,7 @@ read_xlogfile(file, version = "auto", expand.abbrevs = TRUE)
      \item{gender}{gender: male or female} 
      \item{alignment}{alignment} 
      \item{cause}{cause of death}
+     \item{while}{additional comment}
 
 }
 \references{
@@ -81,11 +82,15 @@ read_xlogfile(file, version = "auto", expand.abbrevs = TRUE)
 }
 \examples{
 \dontrun{
-require("NethackLogfiles")
+library("NethackLogfiles")
 nh <- read_logfile("/var/games/nethack/logfile")
-nh <- read_logfile("/home/es/Documents/Nethack/3.6.0/logfile")
+nh <- read_xlogfile("/var/games/nethack/xlogfile")
 boxplot(nh$score ~ nh$role)
-boxplot(nh$dun.level.max~nh$role)
-plot(nh$death.date, nh$score, type = "h")
+plot(nh$death.date, nh$score, type = "h")  ## score as a time-series
+boxplot(nh$score ~ format(nh$death.date, "%m")) ## score per month
+
+nh <- read_xlogfile("/var/games/nethack/xlogfile",
+                    expand.abbrevs = FALSE)
+boxplot(nh$dun.level.max ~ nh$role)
 }
 }
