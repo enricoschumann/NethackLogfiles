@@ -10,8 +10,8 @@
   Read logfiles of the ancient game of Nethack.
 }
 \usage{
-read_logfile(file, version = "auto", expand.abbrevs = TRUE)
-read_xlogfile(file, version = "auto", expand.abbrevs = TRUE)
+read_logfile (file, version = NULL, expand.abbrevs = TRUE, verbose = TRUE)
+read_xlogfile(file, version = NULL, expand.abbrevs = TRUE, verbose = TRUE, sep = "\t")
 }
 \arguments{
   \item{file}{
@@ -21,8 +21,15 @@ read_xlogfile(file, version = "auto", expand.abbrevs = TRUE)
     character
   }
   \item{expand.abbrevs}{
-    logical; should abbreviated rolenames etc. be expanded? Default is \code{TRUE}.
-  }  
+    logical; should abbreviated rolenames etc. be expanded?
+    Default is \code{TRUE}.
+  }
+  \item{verbose}{
+    logical: write messages?
+  }
+  \item{sep}{
+    character: the field separator
+  }
 }
 \details{
 
@@ -32,30 +39,30 @@ read_xlogfile(file, version = "auto", expand.abbrevs = TRUE)
 
 }
 \value{
-  A \code{\link{data.frame}}.  
+  A \code{\link{data.frame}}.
 
-     \item{version}{Nethack version} 
-     \item{name}{player name} 
-     \item{score}{score} 
-     \item{dun.num}{} 
-     \item{dun.level}{dungeon level when killed} 
-     \item{dun.level.max}{deepest dungeon level visited} 
-     \item{hp}{hitpoints} 
-     \item{hp.max}{maximum hitpoints} 
-     \item{ndeaths}{number of deaths} 
-     \item{death.date}{Date; end of game} 
-     \item{birth.date}{Date; start of game} 
-     \item{uid}{uid} 
-     \item{role}{role} 
-     \item{race}{race} 
-     \item{gender}{gender: male or female} 
-     \item{alignment}{alignment} 
+     \item{version}{Nethack version}
+     \item{name}{player name}
+     \item{score}{score}
+     \item{dun.num}{}
+     \item{dun.level}{dungeon level when killed}
+     \item{dun.level.max}{deepest dungeon level visited}
+     \item{hp}{hitpoints}
+     \item{hp.max}{maximum hitpoints}
+     \item{ndeaths}{number of deaths}
+     \item{death.date}{\code{\link{Date}}; end of game}
+     \item{birth.date}{\code{\link{Date}}; start of game}
+     \item{uid}{uid}
+     \item{role}{role}
+     \item{race}{race}
+     \item{gender}{gender: male or female}
+     \item{alignment}{alignment}
      \item{cause}{cause of death}
      \item{while}{additional comment}
 
 }
 \references{
-  
+
    \url{http://www.saunalahti.fi/~juklahta/nethack.html}
 
    \url{http://nethackwiki.com/wiki/Logfile}
@@ -75,7 +82,7 @@ read_xlogfile(file, version = "auto", expand.abbrevs = TRUE)
    https://github.com/enricoschumann/NethackLogfiles
 
    https://scoreboard.xd.cm/about.html
-   
+
 }
 \author{
   Enrico Schumann

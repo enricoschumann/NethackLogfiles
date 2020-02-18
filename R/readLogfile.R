@@ -1,12 +1,14 @@
 read_xlogfile <- function(file,
+                          version = NULL,
                           expand.abbrevs = TRUE,
+                          verbose = TRUE,
                           sep = "\t") {
 
     txt <- readLines(file)
 
     field <- function(s, field, sep)
         gsub(paste0(".*", field, "=([^", sep, "]+).*"), "\\1", s)
-    
+
     version       <- field(txt, "version", sep)
     score         <- as.numeric(field(txt, "points", sep))
     dun.num       <- as.numeric(field(txt, "deathdnum", sep))
@@ -36,9 +38,9 @@ read_xlogfile <- function(file,
     gender0 <- field(txt, "gender0", sep)
     align0 <- field(txt, "align0", sep)
     flags <- field(txt, "flags", sep)
-    
+
     if (expand.abbrevs) {
-        
+
         role[role == "Arc"] <- "archeologist"
         role[role == "Bar"] <- "barbarian"
         role[role == "Cav"] <- "caveman"
@@ -68,30 +70,32 @@ read_xlogfile <- function(file,
         race[race == "Hum"] <- "human"
         race[race == "Orc"] <- "orc"
     }
-    
-    data.frame(version       =  version, 
-               name          =  name, 
-               score         =  score, 
-               dun.num       =  dun.num, 
-               dun.level     =  dun.level, 
-               dun.level.max =  dun.level.max, 
-               hp            =  hp, 
-               hp.max        =  hp.max, 
-               ndeaths       =  ndeaths, 
-               death.date    =  end.date, 
-               birth.date    =  start.date, 
-               uid           =  uid, 
-               role          =  role, 
-               race          =  race, 
-               gender        =  gender, 
-               alignment     =  alignment, 
+
+    data.frame(version       =  version,
+               name          =  name,
+               score         =  score,
+               dun.num       =  dun.num,
+               dun.level     =  dun.level,
+               dun.level.max =  dun.level.max,
+               hp            =  hp,
+               hp.max        =  hp.max,
+               ndeaths       =  ndeaths,
+               death.date    =  end.date,
+               birth.date    =  start.date,
+               uid           =  uid,
+               role          =  role,
+               race          =  race,
+               gender        =  gender,
+               alignment     =  alignment,
                cause         =  cause,
-               `while`       =  while_, 
-               stringsAsFactors = FALSE)
-    
+               `while`       =  while_,
+               stringsAsFactors = FALSE,
+               check.names = FALSE)
+
 }
 
-read_logfile <- function(file, version = "auto", expand.abbrevs = TRUE) {
+read_logfile <- function(file, version = NULL, expand.abbrevs = TRUE,
+                         verbose = TRUE) {
 
     field <- function(x, n)
         unlist(lapply(x, `[[`, n))
@@ -99,27 +103,31 @@ read_logfile <- function(file, version = "auto", expand.abbrevs = TRUE) {
     txt <- readLines(file)
 
     ## version number present? [version number since 3.2.0]
-    ver <- grep("^[0-9]+[.][0-9]+[.][0-9]+.*", txt, perl = TRUE)
-    version_ <- if (length(ver))
-                    gsub("^([0-9]+[.][0-9]+[.][0-9]+).*", "\\1", txt[min(ver)])
-                else
-                    NA
+    ver <- grep("^[0-9]+[.][0-9]+[.][0-9]+.*", txt[1L], perl = TRUE)
+    ver <- if (length(ver))
+               gsub("^([0-9]+[.][0-9]+[.][0-9]+).*", "\\1", txt)
+           else
+               NA
 
-    if (version == "auto") {
-        if (!length(ver))
-            stop("no version information in logfile")
-        if (grepl("[0-9]+[.][0-9]+[.][0-9]+", version_))
-            version <- version_
-        else
-            stop("no version information in logfile")            
-    } else if (!is.na(version_) && (version_ != version))
-        warning("logfile version is ", sQuote(version_))
-    
-    if (version %in% c("3.4.3", "3.6.0")) {
-        comma <- regexpr(",", txt, fixed = TRUE)    
-        txt0 <- substr(txt[ver], 1, comma - 1L)
+    if (!is.null(version)) {
+        version <- package_version(version)
+        if (is.na(ver[1L]) && verbose) {
+            message("no version information in logfile")
+            txt <- character(0)
+        } else {
+            ver <- package_version(ver)
+            txt <- txt[version == ver]
+        }
+    }
+    if (!length(txt))
+        return(.no.record)
+
+    if (is.null(version) ||
+        version >= package_version("3.4.3")) {
+        comma <- regexpr(",", txt, fixed = TRUE)
+        txt0 <- substr(txt, 1, comma - 1L)
         tmp <- strsplit(txt0, " ")
-        
+
         version       <- field(tmp, 1)
         score         <- as.numeric(field(tmp, 2))
         dun.num       <- as.numeric(field(tmp, 3))
@@ -136,11 +144,11 @@ read_logfile <- function(file, version = "auto", expand.abbrevs = TRUE) {
         gender        <- field(tmp, 14)
         alignment     <- field(tmp, 15)
         name          <- field(tmp, 16)
-        cause         <- substr(txt[ver], comma + 1L, nchar(txt))
-        
-        
+        cause         <- substr(txt, comma + 1L, nchar(txt))
+
+
         if (expand.abbrevs) {
-            
+
             role[role == "Arc"] <- "archeologist"
             role[role == "Bar"] <- "barbarian"
             role[role == "Cav"] <- "caveman"
@@ -168,13 +176,13 @@ read_logfile <- function(file, version = "auto", expand.abbrevs = TRUE) {
             race[race == "Hum"] <- "human"
             race[race == "Orc"] <- "orc"
         }
-        
-    } else if (version %in% c("3.1.0")) {
 
-        comma <- regexpr(",", txt, fixed = TRUE)    
+    } else if (version == package_version("3.1.0")) {
+
+        comma <- regexpr(",", txt, fixed = TRUE)
         txt0 <- substr(txt, 1, comma - 1L)
         tmp <- strsplit(txt0, " ")
-        
+
         ## version       <- version
         end.date      <- as.Date(field(tmp, 1), format = "%y%m%d")
         start.date    <- NA
@@ -187,34 +195,57 @@ read_logfile <- function(file, version = "auto", expand.abbrevs = TRUE) {
         score         <- as.numeric(field(tmp, 8))
         role          <- substr(field(tmp, 9),1,1)
         gender        <- substr(field(tmp, 9),2,2)
-        name          <- field(tmp, 10)        
+        name          <- field(tmp, 10)
         ndeaths       <- NA
         race          <- NA
         alignment     <- NA
         cause         <- substr(txt, comma + 1L, nchar(txt))
     }
-    
 
 
-    df0 <- data.frame(version       =  version, 
-                      name          =  name, 
-                      score         =  score, 
-                      dun.num       =  dun.num, 
-                      dun.level     =  dun.level, 
-                      dun.level.max =  dun.level.max, 
-                      hp            =  hp, 
-                      hp.max        =  hp.max, 
-                      ndeaths       =  ndeaths, 
-                      death.date    =  end.date, 
-                      birth.date    =  start.date, 
-                      uid           =  uid, 
-                      role          =  role, 
-                      race          =  race, 
-                      gender        =  gender, 
-                      alignment     =  alignment, 
+
+    df0 <- data.frame(version       =  as.character(version),
+                      name          =  name,
+                      score         =  score,
+                      dun.num       =  dun.num,
+                      dun.level     =  dun.level,
+                      dun.level.max =  dun.level.max,
+                      hp            =  hp,
+                      hp.max        =  hp.max,
+                      ndeaths       =  ndeaths,
+                      death.date    =  end.date,
+                      birth.date    =  start.date,
+                      uid           =  uid,
+                      role          =  role,
+                      race          =  race,
+                      gender        =  gender,
+                      alignment     =  alignment,
                       cause         =  cause,
                       `while`       =  NA,
-                      stringsAsFactors = FALSE)
+                      stringsAsFactors = FALSE,
+                      check.names = FALSE)
 
     df0
 }
+
+
+.no.record <- data.frame(version       =  character(0),
+                         name          =  character(0),
+                         score         =  numeric(0),
+                         dun.num       =  numeric(0),
+                         dun.level     =  numeric(0),
+                         dun.level.max =  numeric(0),
+                         hp            =  numeric(0),
+                         hp.max        =  numeric(0),
+                         ndeaths       =  numeric(0),
+                         death.date    =  numeric(0),
+                         birth.date    =  numeric(0),
+                         uid           =  numeric(0),
+                         role          =  character(0),
+                         race          =  character(0),
+                         gender        =  character(0),
+                         alignment     =  character(0),
+                         cause         =  character(0),
+                         `while`       =  character(0),
+                         stringsAsFactors = FALSE,
+                         check.names = FALSE)
