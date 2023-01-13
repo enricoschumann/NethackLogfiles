@@ -92,7 +92,10 @@ read_xlogfile(file, version = NULL, expand.abbrevs = TRUE, verbose = TRUE, sep =
 library("NethackLogfiles")
 nh <- read_logfile("/var/games/nethack/logfile")
 nh <- read_xlogfile("/var/games/nethack/xlogfile")
+table(nh$role)
 boxplot(nh$score ~ nh$role)
+boxplot(log(nh$score) ~ nh$role)
+
 plot(nh$death.date, nh$score, type = "h")  ## score as a time-series
 boxplot(nh$score ~ format(nh$death.date, "%m")) ## score per month
 
