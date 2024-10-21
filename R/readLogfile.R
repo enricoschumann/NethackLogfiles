@@ -2,10 +2,26 @@ read_xlogfile <- function(file,
                           version = NULL,
                           expand.abbrevs = TRUE,
                           verbose = TRUE,
-                          sep = "\t") {
+                          sep = "\t",
+                          iconv.sub = NULL) {
 
     txt <- readLines(file)
+    if (!is.null(iconv.sub)) {
+        txt <- iconv(txt, sub = iconv.sub)
+    }
 
+    spl <- strsplit(txt, sep, fixed = TRUE)
+
+    ## http://bernoulli.atspace.com/nethack/patches/xlog-v3.patch    
+    ## L26 <- lengths(spl) == 26L
+    ## x1 <- lapply(spl[L26], strsplit, "=", fixed = TRUE)
+    ## x1 <- lapply(x1, `[[`, 2)
+    ## dim(x1) <- c(26*2, sum(L26))
+    
+    ## x2 <- unlist(lapply(spl[!L26], strsplit, "=", fixed = TRUE))
+    ## dim(x2) <- c(27*2, sum(!L26))
+
+    
     field <- function(s, field, sep)
         gsub(paste0(".*", field, "=([^", sep, "]+).*"), "\\1", s)
 

@@ -1,3 +1,8 @@
+2024-10-21  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/readLogfile.R (read_xlogfile): add argument
+	'iconv.sub', with default NULL
+
 2019-12-24  Enrico Schumann  <es@enricoschumann.net>
 
         * DESCRIPTION (Version): 0.99-0

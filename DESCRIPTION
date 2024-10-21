@@ -8,10 +8,10 @@ Authors@R: person(given = "Enrico", family = "Schumann",
                   role  = c("aut", "cre"),
                   email = "es@enricoschumann.net",
                   comment = c(ORCID = "0000-0001-7601-6576"))
-Description: Read logfiles of the ancient game of 'Nethack'.
+Description: Read logfiles of the most-ancient game of 'Nethack'.
   The package provides functions for parsing logfiles and xlogfiles.
   Abbreviations in those files (such as character class and alignment)
   can be expanded.
 License: GPL-3
-URL: http://enricoschumann.net/NethackLogfiles/,
+URL: https://enricoschumann.net/NethackLogfiles/,
      https://github.com/enricoschumann/NethackLogfiles
