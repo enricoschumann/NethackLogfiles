@@ -1,8 +1,8 @@
 Package: NethackLogfiles
 Type: Package
 Title: Read Nethack Logfiles
-Version: 0.99-0
-Date: 2019-12-24
+Version: 0.99-1
+Date: 2025-01-07
 Maintainer: Enrico Schumann <es@enricoschumann.net>
 Authors@R: person(given = "Enrico", family = "Schumann",
                   role  = c("aut", "cre"),
